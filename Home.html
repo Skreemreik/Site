@@ -1,0 +1,116 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.css" rel="stylesheet"> 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Bootstrap сайт</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="Home.html">Главная <span class="sr-only">(вы здесь)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="About.html">Обо мне</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Second.html">Сервисы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Cont.html">Контактные данные</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Добро пожаловать</h1>
+    <p>Благодарю вас за посещение моего сайта на bootstrap, это лишь небольшоя работа а не полноценный сайт, но вы можете посмотреть на разные вкладки, или зарегистрироваться на этой.</p>
+<h1>Регистрация</h1>
+    <form id="registrationForm">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" required><br><br>
+
+        <label for="email">Почта:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" required><br><br>
+
+        <label for="confirmPassword">Повторите пароль:</label>
+        <input type="password" id="confirmPassword" required><br><br>
+
+        <input type="checkbox" id="agreeTerms">
+        <label for="agreeTerms">Я согласен с условиями и правилами</label><br><br>
+
+        <button type="submit" id="submitButton" class="submit-button-disabled" disabled>Submit</button>
+    </form>
+</div>
+    <script>
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const agreeTermsCheckbox = document.getElementById('agreeTerms');
+        const submitButton = document.getElementById('submitButton');
+        // Enable submit button if all required fields are filled
+        function checkFormValidity() {
+            if (usernameInput.value && emailInput.value && passwordInput.value && confirmPasswordInput.value &&
+                agreeTermsCheckbox.checked && passwordInput.value == confirmPasswordInput.value) {
+                submitButton.disabled = false;
+                submitButton.classList.remove('submit-button-disabled');
+            } else {
+                submitButton.disabled = true;
+                submitButton.classList.add('submit-button-disabled');
+            }
+        }
+
+        // Update submit button status on input/change events
+        usernameInput.addEventListener('input', checkFormValidity);
+        emailInput.addEventListener('input', checkFormValidity);
+
+        passwordInput.addEventListener('input', checkFormValidity);
+        confirmPasswordInput.addEventListener('input', checkFormValidity);
+
+        agreeTermsCheckbox.addEventListener('change', checkFormValidity);
+
+        // Form submission handling
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {
+                username: usernameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value,
+                confirmPassword: confirmPasswordInput.value,
+                agreeTerms: agreeTermsCheckbox.checked
+            };
+
+            console.log(formData);
+			let objectString = JSON.stringify(formData)
+			setCookie("object", objectString)
+        });
+		function setCookie(name, value) {
+            document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}`;
+        }
+
+        function getCookie(name) {
+            const cookieString = document.cookie;
+            const cookies = cookieString.split(';')
+                .map(cookie => cookie.trim())
+                .find(cookie => cookie.startsWith(name + '='));
+            
+            if (cookies) {
+                return JSON.parse(decodeURIComponent(cookies.split('=')[1]));
+            } else {
+                return null;
+            }
+        }
+
+        function delCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+    </script>
+<script src="js/jQuery.js"></script>
+<script src="js/bootstrap.min.js"></script>

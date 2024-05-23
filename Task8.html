@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie</title>
+</head>
+<body>
+    <form id="registrationForm">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username">
+        <label for="email">Почта:</label>
+        <input type="email" id="email" name="email">
+        <button type="submit">Загеистрироваться</button>
+    </form>
+
+    <script>
+        function setCookie(name, value) {
+            document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))}`;
+        }
+
+        function getCookie(name) {
+            const cookieString = document.cookie;
+            const cookies = cookieString.split(';')
+                .map(cookie => cookie.trim())
+                .find(cookie => cookie.startsWith(name + '='));
+            
+            if (cookies) {
+                return JSON.parse(decodeURIComponent(cookies.split('=')[1]));
+            } else {
+                return null;
+            }
+        }
+
+        function delCookie(name) {
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+
+            const user = {
+                username: username,
+                email: email
+            };
+
+            setCookie('user', user);
+
+            document.getElementById('username').value = '';
+            document.getElementById('email').value = '';
+        });
+
+        const user = getCookie('user');
+        if (user) {
+            console.log(user);
+        }
+    </script>
+</body>
+</html>

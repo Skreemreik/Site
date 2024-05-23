@@ -1,0 +1,40 @@
+    a{
+    text-decoration: none;
+    color: #000000;
+    }
+	body{
+	background-image:url(3.png);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	}
+	h5{
+	background-image:url(3.png);
+	background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	font-family: Arial, sans-serif;
+    font-size: 40px
+	}
+      .left {
+		color: #000;
+        background-color: #C02639;
+        float: left;
+		text-align: center;
+        width: 50%;
+      }
+      .right {
+		color: #000;
+        background-color: #C02639;
+        float: right;
+		text-align: center;
+        width: 50%;
+      }
